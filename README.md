@@ -1,18 +1,7 @@
-# Phil Zuckerman — Constructing the Secular
+# Phil Zuckerman — Field Gallery v4
 
-An immersive, interactive second website concept influenced by De Stijl, Dutch modernist typography, and spatial graphic design.
+Complete immersive static multipage website using only supplied photographs, book covers, and embedded videos.
 
-## Upload
-Upload every file in this folder to the same web root. `index.html` is the homepage. All assets are local.
+The homepage uses Phil's supplied travel photograph with the hat. Primary pages use additional supplied photographs; books use supplied covers; media opens an outdoor projection page with the selected YouTube video. No AI-generated imagery or icon artwork is used in the website.
 
-## Interaction system
-- Architectural page transitions
-- Mouse-reactive grid and portrait planes
-- Draggable colored planes
-- Magnetic navigation
-- Kinetic horizontal book shelf
-- Interactive research-node field
-- Animated media panels and event route
-- Responsive touch layouts
-
-No AI-generated imagery is used. Photographs and book covers are the supplied project assets.
+Deploy every file in this folder to a static host.
