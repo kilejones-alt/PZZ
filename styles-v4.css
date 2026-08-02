@@ -76,8 +76,8 @@ body.is-leaving .transition-walls i{transform:scaleY(1)}
 /* homepage */
 .field-hero{position:relative;min-height:calc(100svh - var(--header));background:var(--pine-950);overflow:hidden;isolation:isolate;border-bottom:1px solid var(--line)}
 .field-landscape{position:absolute;inset:0;margin:0;z-index:-3;overflow:hidden;background:var(--pine-950)}
-.field-landscape::before{content:"";position:absolute;inset:-4%;background:url("hiking.webp") center 46%/cover no-repeat;filter:saturate(.68) contrast(1.14) brightness(.54);transform:scale(1.08) translate3d(calc(var(--px)*-4px),calc(var(--py)*-3px),0);transition:transform .45s linear,filter .6s}
-.field-landscape img{position:absolute;right:2.5vw;top:0;width:min(60vw,840px);height:100%;object-fit:contain;object-position:right center;z-index:2;filter:saturate(.9) contrast(1.05) brightness(.86) drop-shadow(-32px 20px 34px rgba(0,0,0,.3));transform:translate3d(calc(var(--px)*-9px),calc(var(--py)*-6px),0) scale(.99);transition:transform .65s cubic-bezier(.18,.8,.2,1),filter .5s;mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 17%,#000 35%);-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 17%,#000 35%)}
+.field-landscape::before{content:"";position:absolute;inset:-4%;background:url("hiking-landscape.webp") center 46%/cover no-repeat;filter:saturate(.68) contrast(1.14) brightness(.54);transform:scale(1.08) translate3d(calc(var(--px)*-4px),calc(var(--py)*-3px),0);transition:transform .45s linear,filter .6s}
+.field-landscape img{position:absolute;right:clamp(250px,21vw,340px);top:0;width:min(58vw,800px);height:100%;object-fit:contain;object-position:right center;z-index:2;filter:saturate(.9) contrast(1.05) brightness(.86) drop-shadow(-32px 20px 34px rgba(0,0,0,.3));transform:translate3d(calc(var(--px)*-9px),calc(var(--py)*-6px),0) scale(.99);transition:transform .65s cubic-bezier(.18,.8,.2,1),filter .5s;mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 17%,#000 35%);-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 17%,#000 35%)}
 .field-landscape:hover::before{transform:scale(1.12) translate3d(calc(var(--px)*-6px),calc(var(--py)*-4px),0);filter:saturate(.8) contrast(1.14) brightness(.59)}
 .field-landscape:hover img{transform:translate3d(calc(var(--px)*-13px),calc(var(--py)*-9px),0) scale(1.025);filter:saturate(1) contrast(1.06) brightness(.92) drop-shadow(-38px 24px 46px rgba(0,0,0,.36))}
 .field-vignette{position:absolute;inset:0;z-index:3;background:linear-gradient(90deg,rgba(3,17,15,.98) 0%,rgba(3,17,15,.9) 27%,rgba(3,17,15,.45) 52%,rgba(3,17,15,.07) 72%,rgba(3,17,15,.38) 100%),linear-gradient(0deg,rgba(3,15,13,.82),transparent 48%)}
@@ -102,7 +102,7 @@ body.is-leaving .transition-walls i{transform:scaleY(1)}
 .story-link b{display:block;color:var(--amber-light);font-size:.6rem;margin-bottom:.15rem}
 .story-disc{width:50px;height:50px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;font-size:.5rem;letter-spacing:.1em;transition:transform .35s,background .35s}
 .story-link:hover .story-disc{transform:scale(1.18) rotate(5deg);background:var(--amber);color:var(--pine-950)}
-.field-features{position:absolute;right:4.5vw;top:29%;z-index:10;width:clamp(220px,17vw,295px);display:grid;gap:1rem}
+.field-features{position:absolute;right:clamp(24px,3.2vw,52px);top:27%;z-index:10;width:clamp(220px,16vw,270px);display:grid;gap:1rem}
 .field-feature{display:block;padding:1.35rem 1.45rem;background:rgba(6,20,17,.64);border:1px solid var(--line);text-decoration:none;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);transform-origin:right center;transition:transform .4s cubic-bezier(.16,.82,.2,1),background .35s,box-shadow .35s}
 .field-feature small,.field-feature span{display:block;text-transform:uppercase;letter-spacing:.17em;font-size:.55rem;color:var(--amber-light)}
 .field-feature strong{display:block;margin:.65rem 0 1rem;font-family:var(--serif);font-size:clamp(1.45rem,2vw,2.15rem);font-weight:400;line-height:1.04}
@@ -249,7 +249,7 @@ html.js .reveal.in{transition:opacity .65s,transform .65s cubic-bezier(.16,.82,.
 
 /* tablet */
 @media(max-width:1180px){
-  .edition{display:none}.header-inner{grid-template-columns:var(--rail) 1fr}.field-copy{width:67vw}.field-features{right:2vw;width:215px}.field-feature:hover{transform:translateX(-3%) scale(1.18)}
+  .edition{display:none}.header-inner{grid-template-columns:var(--rail) 1fr}.field-copy{width:67vw}.field-landscape img{right:230px;width:min(60vw,760px)}.field-features{right:2vw;width:215px}.field-feature:hover{transform:translateX(-3%) scale(1.18)}
   .field-themes{grid-template-columns:repeat(4,1fr)}.scroll-cue{display:none}
   .page-hero{grid-template-columns:var(--rail) 48% 1fr}.contact-stage{grid-template-columns:var(--rail) 55% 1fr}.contact-meta{grid-template-columns:1fr}
   .book-detail{grid-template-columns:var(--rail) 42% 1fr}.film-card{min-height:430px}
