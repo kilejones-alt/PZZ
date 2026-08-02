@@ -1,0 +1,8 @@
+(()=>{"use strict";
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+function setupImages(){ $$('img[data-fallback]').forEach(img=>{img.addEventListener('error',()=>{if(img.dataset.failed)return;img.dataset.failed='1';img.src=img.dataset.fallback},{once:true})}); }
+function setupMenu(){const menu=$('.menu'),nav=$('#nav');if(!menu||!nav)return;menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));nav.classList.toggle('open',!open)});$$('a',nav).forEach(a=>a.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');nav.classList.remove('open')}));}
+function setupHeader(){const header=$('[data-header]');if(!header)return;const update=()=>header.classList.toggle('scrolled',scrollY>10);update();addEventListener('scroll',update,{passive:true});}
+function setupReveal(){const els=$$('.reveal');if(!els.length)return;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduced||!('IntersectionObserver'in window)){els.forEach(x=>x.classList.add('seen'));return;}const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');io.unobserve(entry.target)}}),{threshold:.05,rootMargin:'0px 0px -3%'});els.forEach(x=>io.observe(x));}
+addEventListener('DOMContentLoaded',()=>{setupImages();setupMenu();setupHeader();setupReveal();});
+})();
