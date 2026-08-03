@@ -28,13 +28,12 @@
     const explicit = target?.closest('[data-cursor]')?.dataset.cursor;
     if (explicit) return explicit;
     if (target?.closest('.screen-poster,.film-card,.story-link')) return 'PLAY';
-    if (target?.closest('.book-shelf')) return 'DRAG';
     if (target?.closest('.gallery-card,.page-hero-art,.contact-photo,.field-landscape,.cover,.book-object')) return 'VIEW';
     if (target?.closest('.block-link')) return 'OPEN';
     return '';
   };
 
-  const hotSelector = 'a,button,[data-tilt],.book-shelf,.theme-node,.page-hero-art,.contact-photo,.field-landscape';
+  const hotSelector = 'a,button,[data-tilt],.theme-node,.page-hero-art,.contact-photo,.field-landscape';
 
   const drawCursor = () => {
     const cursorEase = cursor?.classList.contains('is-hot') ? 0.3 : 0.44;
@@ -155,36 +154,6 @@
 
   // Header movement is handled in CSS so it remains slow and consistent.
   // Horizontal book shelf: drag on fine pointers; native horizontal scroll/swipe on touch.
-  document.querySelectorAll('.book-shelf').forEach((shelf) => {
-    if (!finePointer.matches) return;
-    let dragging = false;
-    let startX = 0;
-    let startScroll = 0;
-    shelf.addEventListener('pointerdown', (event) => {
-      if (event.button !== 0) return;
-      dragging = true;
-      startX = event.clientX;
-      startScroll = shelf.scrollLeft;
-      shelf.classList.add('dragging');
-      shelf.setPointerCapture(event.pointerId);
-    });
-    shelf.addEventListener('pointermove', (event) => {
-      if (!dragging) return;
-      shelf.scrollLeft = startScroll - (event.clientX - startX) * 1.25;
-    });
-    const endDrag = () => {
-      dragging = false;
-      shelf.classList.remove('dragging');
-    };
-    shelf.addEventListener('pointerup', endDrag);
-    shelf.addEventListener('pointercancel', endDrag);
-    shelf.addEventListener('wheel', (event) => {
-      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-      event.preventDefault();
-      shelf.scrollLeft += event.deltaY;
-    }, { passive: false });
-  });
-
   // Book-cover tilt on capable devices only.
   document.querySelectorAll('[data-tilt]').forEach((element) => {
     element.addEventListener('pointermove', (event) => {

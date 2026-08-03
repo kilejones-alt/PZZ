@@ -892,3 +892,181 @@ html.js body.has-entered .arrival-piece{animation-fill-mode:backwards}
   .translation-card{transition:none!important}
   .translation-card:hover{transform:none}
 }
+
+/* Final interface cleanup — remove gimmick labels, clarify typography, and make the video page a finished gallery screen. */
+.mark::before{display:none!important}
+
+/* Homepage primary actions: thinner and more legible. */
+.field-button{
+  font-size:.66rem;
+  font-weight:560;
+  letter-spacing:.12em;
+  text-shadow:none;
+}
+.field-button b{font-weight:500}
+
+/* Homepage feature cards: crisper gold labels and clean body type. */
+.field-feature{
+  background:rgba(7,25,21,.76);
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+.field-feature small,
+.field-feature span{
+  color:#efb461;
+  font-size:.56rem;
+  font-weight:560;
+  letter-spacing:.115em;
+  line-height:1.35;
+  text-shadow:none;
+}
+.field-feature strong{
+  color:#f4efe4;
+  font-weight:400;
+  text-shadow:none;
+}
+
+/* Books: a conventional gallery grid, without drag/scroll instructions or drag cursor. */
+.shelf-head{display:block;padding-bottom:1.8rem}
+.shelf-head h2{margin:0}
+.book-shelf{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px;
+  overflow:visible;
+  padding-top:0;
+  cursor:default;
+  scroll-snap-type:none;
+}
+.book-object{
+  min-width:0;
+  min-height:560px;
+  scroll-snap-align:none;
+}
+.book-index{
+  font-size:.55rem;
+  font-weight:560;
+  letter-spacing:.12em;
+}
+
+/* Writing: no arbitrary essay numbering. */
+.work-row{
+  grid-template-columns:minmax(0,1fr) minmax(170px,28%) 28px;
+  padding-left:1.8rem;
+}
+
+/* Speaking: no Event 01 / Event 02 labels. */
+.route-event h2{margin-top:0}
+
+/* Projector page: clean exhibition screen, no fake projector, beams, or instructions. */
+.projection-field{
+  min-height:calc(100svh - var(--header));
+  padding:clamp(2.4rem,5vh,4.5rem) var(--pad) 4rem;
+  align-items:flex-start;
+  background:#04110e;
+}
+.projection-landscape{
+  opacity:.24;
+  filter:saturate(.72) brightness(.42) contrast(1.08);
+  transform:scale(1.02);
+}
+.projection-dark{
+  background:linear-gradient(180deg,rgba(2,12,10,.72),rgba(2,12,10,.82));
+}
+.projector,.beam,.lens{display:none!important}
+.projection-screen{
+  width:min(1080px,88vw);
+  margin-top:0;
+  transform:none!important;
+}
+.screen-frame{
+  border:1px solid rgba(244,239,228,.22);
+  padding:0;
+  background:#020403;
+  box-shadow:0 34px 90px rgba(0,0,0,.52);
+}
+.screen-poster{inset:0}
+.screen-poster img{
+  filter:saturate(.78) brightness(.72) contrast(1.04);
+}
+.screen-poster::after{
+  background:linear-gradient(0deg,rgba(2,10,8,.52),transparent 58%);
+}
+.screen-play{
+  width:76px;
+  height:76px;
+  background:rgba(4,16,13,.58);
+  font-weight:560;
+}
+.projection-meta{
+  margin-top:1.35rem;
+  padding-top:1.2rem;
+  border-top:1px solid rgba(244,239,228,.16);
+}
+.projection-meta h1{
+  font-size:clamp(2rem,3.8vw,4.2rem);
+  margin:.2rem 0 0;
+}
+.projection-links a{
+  font-size:.62rem;
+  font-weight:560;
+  letter-spacing:.11em;
+}
+
+@media(max-width:1100px){
+  .book-shelf{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .book-shelf{grid-template-columns:repeat(2,minmax(0,1fr));padding-left:18px;padding-right:18px}
+  .book-object{min-height:0}
+  .work-row{grid-template-columns:1fr 20px;padding-left:1rem}
+  .work-row p{grid-column:1}
+  .projection-field{padding:2rem 12px 3rem}
+  .projection-screen{width:100%}
+  .projection-meta{display:block}
+  .projection-links{align-items:flex-start;margin-top:1.4rem}
+}
+@media(max-width:460px){
+  .book-shelf{grid-template-columns:1fr}
+}
+
+
+/* Final requested cleanup: no instruction tiles, no heavy button labels, and crisp feature-card captions. */
+.field-themes{grid-template-columns:repeat(4,minmax(0,1fr))}
+.scroll-cue{display:none!important}
+.field-button{
+  font-family:var(--sans);
+  font-size:.67rem;
+  font-weight:500;
+  letter-spacing:.105em;
+  line-height:1.15;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+.field-button b{font-weight:400}
+.field-feature small,
+.field-feature span{
+  color:#e8aa55;
+  font-size:.54rem;
+  font-weight:450;
+  letter-spacing:.095em;
+  line-height:1.4;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+.field-feature strong{
+  color:#f6f0e4;
+  font-weight:400;
+  line-height:1.08;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+@media(max-width:720px){
+  .field-themes{grid-template-columns:1fr 1fr}
+}
+
+/* Phone title fit: preserve the two-word hierarchy without clipping the surname. */
+@media(max-width:720px){
+  .field-name .phil-word{font-size:.91em!important}
+  .field-name .zuck-word{font-size:.72em!important}
+}
