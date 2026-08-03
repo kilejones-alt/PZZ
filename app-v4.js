@@ -14,6 +14,8 @@
   let mouseY = window.innerHeight / 2;
   let cursorX = mouseX;
   let cursorY = mouseY;
+  let smoothX = mouseX;
+  let smoothY = mouseY;
   let cursorFrame = 0;
   const cursor = document.querySelector('.cursor');
 
@@ -28,15 +30,20 @@
     if (target?.closest('.screen-poster,.film-card,.story-link')) return 'PLAY';
     if (target?.closest('.book-shelf')) return 'DRAG';
     if (target?.closest('.gallery-card,.page-hero-art,.contact-photo,.field-landscape,.cover,.book-object')) return 'VIEW';
-    return 'OPEN';
+    if (target?.closest('.block-link')) return 'OPEN';
+    return '';
   };
 
   const hotSelector = 'a,button,[data-tilt],.book-shelf,.theme-node,.page-hero-art,.contact-photo,.field-landscape';
 
   const drawCursor = () => {
-    const ease = cursor?.classList.contains('is-hot') ? 0.28 : 0.42;
-    cursorX += (mouseX - cursorX) * ease;
-    cursorY += (mouseY - cursorY) * ease;
+    const cursorEase = cursor?.classList.contains('is-hot') ? 0.3 : 0.44;
+    cursorX += (mouseX - cursorX) * cursorEase;
+    cursorY += (mouseY - cursorY) * cursorEase;
+    smoothX += (mouseX - smoothX) * 0.085;
+    smoothY += (mouseY - smoothY) * 0.085;
+    const px = (smoothX / Math.max(window.innerWidth, 1) - 0.5) * 2;
+    const py = (smoothY / Math.max(window.innerHeight, 1) - 0.5) * 2;
     if (cursor) cursor.style.transform = `translate3d(${cursorX}px,${cursorY}px,0)`;
     cursorFrame = requestAnimationFrame(drawCursor);
   };
@@ -44,12 +51,8 @@
   const handlePointerMove = (event) => {
     mouseX = event.clientX;
     mouseY = event.clientY;
-    const px = (mouseX / Math.max(window.innerWidth, 1) - 0.5) * 2;
-    const py = (mouseY / Math.max(window.innerHeight, 1) - 0.5) * 2;
     root.style.setProperty('--mx', `${mouseX}px`);
     root.style.setProperty('--my', `${mouseY}px`);
-    root.style.setProperty('--px', px.toFixed(3));
-    root.style.setProperty('--py', py.toFixed(3));
 
     if (!cursor || !finePointer.matches || reduceMotion.matches) return;
     const hot = event.target.closest?.(hotSelector);
@@ -130,23 +133,7 @@
     if (!element.style.getPropertyValue('--arrival')) element.style.setProperty('--arrival', String(Math.min(index + 1, 10)));
   });
 
-  // Title letters retain the supplied text for accessibility.
-  document.querySelectorAll('.letter-word').forEach((word) => {
-    if (word.dataset.lettersReady) return;
-    const text = word.textContent.trim();
-    word.setAttribute('aria-label', text);
-    word.textContent = '';
-    [...text].forEach((character, index) => {
-      const span = document.createElement('span');
-      span.className = 'kinetic-letter';
-      span.textContent = character;
-      span.style.setProperty('--i', String(index));
-      span.setAttribute('aria-hidden', 'true');
-      word.append(span);
-    });
-    word.dataset.lettersReady = 'true';
-  });
-
+  // Word-level motion is used for editorial headings and selected prose.
   // Word-level motion is restricted to navigation and display headings.
   const splitWords = (element) => {
     if (element.dataset.wordsReady || element.querySelector('img,iframe,br')) return;
@@ -164,29 +151,9 @@
     });
     element.dataset.wordsReady = 'true';
   };
-  document.querySelectorAll('.nav a,.gallery-copy h2,.page-hero-copy h1,.bio-block h2,.work-row h2,.film-card h2,.route-event h2,.book-object h3,.book-info h1').forEach(splitWords);
-  document.querySelectorAll('.kinetic-word,.kinetic-letter').forEach((item) => {
-    item.addEventListener('pointerleave', () => {
-      if (reduceMotion.matches) return;
-      item.classList.remove('settling');
-      void item.offsetWidth;
-      item.classList.add('settling');
-      window.setTimeout(() => item.classList.remove('settling'), 760);
-    });
-  });
+  document.querySelectorAll('.nav a,.field-sub,.gallery-copy h2,.page-hero-copy h1,.bio-block h2,.work-row h2,.film-card h2,.route-event h2,.book-object h3,.book-info h1').forEach(splitWords);
 
-  // Restrained magnetic movement in the desktop header.
-  document.querySelectorAll('.nav a').forEach((link) => {
-    link.addEventListener('pointermove', (event) => {
-      if (!finePointer.matches || reduceMotion.matches) return;
-      const rect = link.getBoundingClientRect();
-      const x = event.clientX - rect.left - rect.width / 2;
-      const y = event.clientY - rect.top - rect.height / 2;
-      link.style.transform = `translate3d(${x * 0.08}px,${y * 0.1 - 3}px,0)`;
-    });
-    link.addEventListener('pointerleave', () => { link.style.transform = ''; });
-  });
-
+  // Header movement is handled in CSS so it remains slow and consistent.
   // Horizontal book shelf: drag on fine pointers; native horizontal scroll/swipe on touch.
   document.querySelectorAll('.book-shelf').forEach((shelf) => {
     if (!finePointer.matches) return;
@@ -225,7 +192,7 @@
       const rect = element.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width - 0.5;
       const y = (event.clientY - rect.top) / rect.height - 0.5;
-      element.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 10}deg) translateY(-14px) scale(1.045)`;
+      element.style.transform = `rotateY(${x * 5}deg) rotateX(${-y * 4}deg) translateY(-8px) scale(1.02)`;
     });
     element.addEventListener('pointerleave', () => { element.style.transform = ''; });
   });
@@ -279,7 +246,7 @@
 
     playButton.addEventListener('click', () => {
       if (screen.classList.contains('is-playing')) return;
-      if (status) status.textContent = 'Loading the YouTube player. Playback and audio remain under your control.';
+      if (status) status.textContent = 'Requesting the YouTube player. Playback and audio remain under your control.';
       frame.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1${start ? `&start=${start}` : ''}`;
       screen.classList.add('is-playing');
       frame.focus({ preventScroll: true });
@@ -287,7 +254,7 @@
 
     frame.addEventListener('load', () => {
       if (status && screen.classList.contains('is-playing')) {
-        status.textContent = 'Player frame loaded. If playback is blocked, use the direct YouTube link.';
+        status.textContent = 'YouTube player requested. If playback is blocked or the frame remains blank, use the direct YouTube link.';
       }
     });
   }

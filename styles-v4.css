@@ -76,7 +76,7 @@ body.is-leaving .transition-walls i{transform:scaleY(1)}
 /* homepage */
 .field-hero{position:relative;min-height:calc(100svh - var(--header));background:var(--pine-950);overflow:hidden;isolation:isolate;border-bottom:1px solid var(--line)}
 .field-landscape{position:absolute;inset:0;margin:0;z-index:-3;overflow:hidden;background:var(--pine-950)}
-.field-landscape::before{content:"";position:absolute;inset:-4%;background:url("hiking-landscape.webp") center 46%/cover no-repeat;filter:saturate(.68) contrast(1.14) brightness(.54);transform:scale(1.08) translate3d(calc(var(--px)*-4px),calc(var(--py)*-3px),0);transition:transform .45s linear,filter .6s}
+.field-landscape::before{content:"";position:absolute;inset:-4%;background:url("hiking-landscape-rich.webp") center 46%/cover no-repeat;filter:saturate(.68) contrast(1.14) brightness(.54);transform:scale(1.08) translate3d(calc(var(--px)*-4px),calc(var(--py)*-3px),0);transition:transform .45s linear,filter .6s}
 .field-landscape img{position:absolute;right:clamp(250px,21vw,340px);top:0;width:min(58vw,800px);height:100%;object-fit:contain;object-position:right center;z-index:2;filter:saturate(.9) contrast(1.05) brightness(.86) drop-shadow(-32px 20px 34px rgba(0,0,0,.3));transform:translate3d(calc(var(--px)*-9px),calc(var(--py)*-6px),0) scale(.99);transition:transform .65s cubic-bezier(.18,.8,.2,1),filter .5s;mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 17%,#000 35%);-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 17%,#000 35%)}
 .field-landscape:hover::before{transform:scale(1.12) translate3d(calc(var(--px)*-6px),calc(var(--py)*-4px),0);filter:saturate(.8) contrast(1.14) brightness(.59)}
 .field-landscape:hover img{transform:translate3d(calc(var(--px)*-13px),calc(var(--py)*-9px),0) scale(1.025);filter:saturate(1) contrast(1.06) brightness(.92) drop-shadow(-38px 24px 46px rgba(0,0,0,.36))}
@@ -294,4 +294,601 @@ html.js .reveal.in{transition:opacity .65s,transform .65s cubic-bezier(.16,.82,.
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
   .arrival-piece,.reveal,html.js body:not(.has-entered) .arrival-piece,html.js .reveal:not(.in){opacity:1!important;transform:none!important}
   .cursor{display:none!important}.field-landscape::before,.field-landscape img,.page-hero-art img{transform:none!important}
+}
+
+
+/* 2026-08-02 refined editorial motion and homepage clarity */
+.header-inner{grid-template-columns:var(--rail) 1fr}
+.nav{padding-left:clamp(28px,3vw,52px)}
+.nav a{transition:transform .62s cubic-bezier(.2,.72,.24,1),color .52s ease}
+.nav a:hover,.nav a[aria-current="page"]{transform:translateY(-4px)}
+.nav a::after{transition:transform .58s cubic-bezier(.2,.72,.24,1)}
+
+/* Keep the mountain weather visible behind the title; no opaque green panel. */
+.field-landscape::before{
+  filter:saturate(.78) contrast(1.08) brightness(.69);
+  transform:scale(1.045) translate3d(calc(var(--px)*-1.4px),calc(var(--py)*-1px),0);
+  transition:transform 1.25s cubic-bezier(.2,.72,.24,1),filter 1.05s ease;
+}
+.field-landscape img{
+  transform:translate3d(calc(var(--px)*-2.2px),calc(var(--py)*-1.6px),0) scale(.99);
+  transition:transform 1.25s cubic-bezier(.2,.72,.24,1),filter 1.05s ease;
+}
+.field-landscape:hover::before{
+  transform:scale(1.06) translate3d(calc(var(--px)*-1.8px),calc(var(--py)*-1.3px),0);
+  filter:saturate(.84) contrast(1.08) brightness(.72);
+}
+.field-landscape:hover img{
+  transform:translate3d(calc(var(--px)*-2.8px),calc(var(--py)*-2px),0) scale(1.006);
+  filter:saturate(.95) contrast(1.04) brightness(.9) drop-shadow(-34px 22px 40px rgba(0,0,0,.31));
+}
+.field-vignette{
+  background:
+    linear-gradient(90deg,rgba(3,12,11,.67) 0%,rgba(3,12,11,.48) 24%,rgba(3,12,11,.19) 49%,rgba(3,12,11,.03) 72%,rgba(3,12,11,.16) 100%),
+    linear-gradient(0deg,rgba(3,12,11,.62),transparent 45%);
+}
+.field-copy{text-shadow:0 2px 22px rgba(0,0,0,.48)}
+
+/* Whole-word interaction only. Color changes remain confined to the hovered word. */
+.title-word{display:inline-block;transform-origin:left bottom;transition:transform .72s cubic-bezier(.2,.72,.24,1),color .62s ease,text-shadow .72s ease}
+.title-word:hover{transform:translateY(-7px);text-shadow:0 18px 34px rgba(0,0,0,.28)}
+.phil-word:hover{color:#d98a53}
+.zuck-word:hover{color:#9eb2ba}
+.kinetic-word{display:inline-block;margin-right:.24em;transition:transform .66s cubic-bezier(.2,.72,.24,1),color .56s ease}
+.kinetic-word:last-child{margin-right:0}
+.kinetic-word:hover{transform:translateY(-5px)}
+.nav .kinetic-word:hover{color:var(--amber-light)}
+.field-sub .kinetic-word:hover{color:rgba(255,255,255,.98);transform:translateY(-4px)}
+
+/* Slow, restrained object movement with no bounce or shake. */
+.field-button{transition:transform .78s cubic-bezier(.2,.72,.24,1),background .68s ease,box-shadow .78s ease,color .58s ease}
+.field-button:hover{transform:translateY(-5px) scale(1.016);box-shadow:0 18px 38px rgba(0,0,0,.3)}
+.story-disc{transition:transform .78s cubic-bezier(.2,.72,.24,1),background .68s ease,color .58s ease}
+.story-link:hover .story-disc{transform:scale(1.07);}
+.field-feature{transition:transform .86s cubic-bezier(.2,.72,.24,1),background .72s ease,box-shadow .86s ease}
+.field-feature:hover{transform:translateX(-3%) scale(1.07);box-shadow:0 24px 58px rgba(0,0,0,.4)}
+.field-themes a,.scroll-cue{transition:transform .76s cubic-bezier(.2,.72,.24,1),background .66s ease,box-shadow .76s ease}
+.field-themes a:hover{transform:translateY(-5px) scale(1.012);box-shadow:0 14px 28px rgba(0,0,0,.27)}
+.gallery-card{transition:transform .92s cubic-bezier(.2,.72,.24,1),box-shadow .92s ease}
+.gallery-image>img{transition:transform 1.28s cubic-bezier(.2,.72,.24,1),filter 1.05s ease}
+.gallery-card:hover{transform:translateY(-6px) scale(1.008);box-shadow:0 28px 72px rgba(0,0,0,.39)}
+.gallery-card:hover .gallery-image>img{transform:scale(1.038) translate3d(calc(var(--px)*-1.2px),calc(var(--py)*-.9px),0)}
+.book-stack img{transition:transform 1.05s cubic-bezier(.2,.72,.24,1),filter .9s ease!important}
+.gallery-card:hover .book-stack img:nth-child(1){transform:rotate(-9deg) translate(-2%,-1%) scale(1.018)}
+.gallery-card:hover .book-stack img:nth-child(2){transform:translateY(-8%) scale(1.025)}
+.gallery-card:hover .book-stack img:nth-child(3){transform:rotate(8deg) translate(2%,-1%) scale(1.018)}
+.page-hero-art img{transition:transform 1.25s cubic-bezier(.2,.72,.24,1),filter 1.05s ease}
+.page-hero-art:hover img{transform:scale(1.035) translate3d(calc(var(--px)*-1.2px),calc(var(--py)*-.9px),0)}
+.bio-block,.theme-node,.work-row,.route-event,.film-card,.quote-card{transition-duration:.82s;transition-timing-function:cubic-bezier(.2,.72,.24,1)}
+.bio-block:hover{transform:translateY(-5px) scale(1.006)}
+.theme-node:hover,.theme-node.active{transform:translateY(-4px) scale(1.035)}
+.cover img{transition:transform 1.02s cubic-bezier(.2,.72,.24,1),filter .9s ease}
+.book-object{transition:transform .92s cubic-bezier(.2,.72,.24,1),background .75s ease,box-shadow .92s ease}
+.book-object:hover{transform:translateY(-9px) scale(1.015);box-shadow:0 26px 62px rgba(0,0,0,.36)}
+.book-object:hover .cover img{transform:translateY(-7px) rotate(1deg) scale(1.035)}
+.work-row:hover,.route-event:hover{transform:translateX(6px)}
+.film-card:hover{transform:translateY(-6px) scale(1.008)}
+.film-card::before{transition:transform 1.25s cubic-bezier(.2,.72,.24,1),filter 1.05s ease}
+.film-card:hover::before{transform:scale(1.04)}
+.contact-photo img{transition:transform 1.25s cubic-bezier(.2,.72,.24,1),filter 1.05s ease}
+.contact-photo:hover img{transform:scale(1.035)}
+.quote-card:hover{transform:scale(1.008)}
+.detail-cover{transition:transform .26s ease-out,filter .75s ease}
+.screen-poster img{transition:transform 1.25s cubic-bezier(.2,.72,.24,1),filter 1.05s ease}
+.screen-poster:hover img{transform:scale(1.035)}
+
+/* Deliberate arrival: pieces descend or slide into place and stop cleanly. */
+.arrival-piece{--arrival-x:0px;--arrival-y:-28px;--arrival-scale:.992;opacity:1;transform:none}
+.site-header{--arrival-y:-18px;--arrival-scale:1}
+.field-landscape{--arrival-y:0px;--arrival-scale:1.025}
+.field-rail{--arrival-x:-22px;--arrival-y:0px;--arrival-scale:1}
+.field-features .arrival-piece{--arrival-x:26px;--arrival-y:0px;--arrival-scale:.99}
+.field-themes{--arrival-y:22px;--arrival-scale:.995}
+html.js body:not(.has-entered) .arrival-piece{opacity:0;transform:translate3d(var(--arrival-x),var(--arrival-y),0) scale(var(--arrival-scale))}
+html.js body.has-entered .arrival-piece{animation:arrive-refined 1.42s cubic-bezier(.19,1,.22,1) both;animation-delay:calc(.11s * var(--arrival,0))}
+@keyframes arrive-refined{
+  0%{opacity:0;transform:translate3d(var(--arrival-x),var(--arrival-y),0) scale(var(--arrival-scale))}
+  100%{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+html.js .reveal:not(.in){opacity:0;transform:translate3d(0,34px,0)}
+html.js .reveal.in{transition:opacity 1.05s ease,transform 1.15s cubic-bezier(.19,1,.22,1);opacity:1;transform:none}
+
+@media(max-width:1180px){
+  .field-feature:hover{transform:translateX(-2%) scale(1.045)}
+}
+@media(max-width:720px){
+  .header-inner{grid-template-columns:var(--rail) 1fr}
+  .nav{padding-left:0}
+  .field-vignette{background:linear-gradient(0deg,rgba(3,17,15,.9),rgba(3,17,15,.02) 74%)}
+  .title-word:hover,.kinetic-word:hover{transform:none}
+}
+/* Blend the supplied portrait into the continuous highland field without a rectangular seam. */
+.field-landscape img{
+  mask-image:radial-gradient(ellipse 54% 104% at 68% 52%,#000 0 58%,rgba(0,0,0,.96) 66%,rgba(0,0,0,.58) 79%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 54% 104% at 68% 52%,#000 0 58%,rgba(0,0,0,.96) 66%,rgba(0,0,0,.58) 79%,transparent 100%);
+}
+.field-landscape img{
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.04) 22%,rgba(0,0,0,.28) 38%,rgba(0,0,0,.72) 50%,#000 61%,#000 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.04) 22%,rgba(0,0,0,.28) 38%,rgba(0,0,0,.72) 50%,#000 61%,#000 100%);
+}
+/* Final responsive and restrained color calibration. */
+.zuck-word:hover{color:#aaa4b7}
+@media(max-width:760px){
+  .header-inner{grid-template-columns:62px 1fr 76px}
+  .nav{padding:1rem}
+}
+
+.phil-word:hover{color:#c98a63}
+
+/* 2026-08-02 final motion and image calibration */
+/* The photograph remains continuous and weather-led; remove the grey side wash. */
+.field-landscape::before{
+  filter:saturate(.96) contrast(1.04) brightness(.84);
+  transform:scale(1.035) translate3d(calc(var(--px)*-.8px),calc(var(--py)*-.6px),0);
+  transition:transform 1.8s cubic-bezier(.18,.72,.2,1),filter 1.45s ease;
+}
+.field-landscape img{
+  filter:saturate(1) contrast(1.02) brightness(.96) drop-shadow(-24px 18px 32px rgba(0,0,0,.22));
+  transform:translate3d(calc(var(--px)*-1.2px),calc(var(--py)*-.9px),0) scale(.995);
+  transition:transform 1.8s cubic-bezier(.18,.72,.2,1),filter 1.45s ease;
+}
+.field-landscape:hover::before{
+  filter:saturate(1) contrast(1.04) brightness(.86);
+  transform:scale(1.045) translate3d(calc(var(--px)*-1px),calc(var(--py)*-.75px),0);
+}
+.field-landscape:hover img{
+  filter:saturate(1.02) contrast(1.02) brightness(.98) drop-shadow(-26px 20px 34px rgba(0,0,0,.24));
+  transform:translate3d(calc(var(--px)*-1.5px),calc(var(--py)*-1.1px),0) scale(1.002);
+}
+.field-vignette{
+  background:
+    linear-gradient(90deg,rgba(2,14,12,.76) 0%,rgba(2,14,12,.58) 24%,rgba(2,14,12,.18) 49%,rgba(2,14,12,.015) 72%,rgba(2,14,12,.035) 100%),
+    linear-gradient(0deg,rgba(2,13,11,.36),transparent 42%);
+}
+
+/* The name rises as two complete words. Every letter receives its own restrained color together. */
+.field-name .title-word{
+  display:block;
+  width:max-content;
+  transform:translate3d(0,0,0);
+  transform-origin:left bottom;
+  text-shadow:0 12px 36px rgba(0,0,0,.25);
+  transition:transform 1.05s cubic-bezier(.18,.72,.2,1),text-shadow 1.05s ease;
+}
+.field-name .title-word:hover{
+  transform:translate3d(0,-9px,0);
+  text-shadow:0 20px 38px rgba(0,0,0,.31);
+}
+.field-name .phil-word,.field-name .phil-word:hover{color:var(--paper)}
+.field-name .zuck-word,.field-name .zuck-word:hover{color:var(--mist)}
+.field-name .kinetic-letter{
+  display:inline-block;
+  color:inherit;
+  transform:none!important;
+  text-shadow:inherit;
+  transition:color .82s cubic-bezier(.2,.68,.22,1);
+  will-change:auto;
+}
+.field-name .title-word:hover .kinetic-letter{
+  color:var(--letter-color)!important;
+  transform:none!important;
+}
+.field-name .title-word .kinetic-letter:hover{
+  color:var(--letter-color)!important;
+  transform:none!important;
+  text-shadow:inherit;
+}
+
+/* Subtitle remains word-by-word, but with slower editorial lift. */
+.kinetic-word{
+  transition:transform .95s cubic-bezier(.18,.72,.2,1),color .82s ease;
+}
+.field-sub .kinetic-word:hover{
+  transform:translateY(-4px);
+  color:rgba(255,255,255,.99);
+}
+
+/* Slow, weighted hover motion for boxes and buttons. */
+.field-button{
+  transition:transform 1.18s cubic-bezier(.18,.72,.2,1),background .95s ease,box-shadow 1.18s ease,color .9s ease;
+}
+.field-button:hover{
+  transform:translateY(-5px) scale(1.014);
+  box-shadow:0 18px 38px rgba(0,0,0,.28);
+}
+.field-feature{
+  transition:transform 1.38s cubic-bezier(.18,.72,.2,1),background 1.05s ease,box-shadow 1.38s ease;
+}
+.field-feature:hover{
+  transform:translateX(-2.2%) translateY(-5px) scale(1.055);
+  box-shadow:0 24px 58px rgba(0,0,0,.38);
+}
+.field-themes a,.scroll-cue{
+  transition:transform 1.12s cubic-bezier(.18,.72,.2,1),background .95s ease,box-shadow 1.12s ease;
+}
+.field-themes a:hover{
+  transform:translateY(-4px) scale(1.009);
+  box-shadow:0 14px 28px rgba(0,0,0,.24);
+}
+
+/* Slower arrival with a clear, non-bouncing landing. */
+.arrival-piece{--arrival-x:0px;--arrival-y:-38px;--arrival-scale:.982}
+.site-header{--arrival-y:-22px;--arrival-scale:1}
+.field-landscape{--arrival-y:0px;--arrival-scale:1.055}
+.field-rail{--arrival-x:-28px;--arrival-y:0px;--arrival-scale:1}
+.field-features .arrival-piece{--arrival-x:34px;--arrival-y:8px;--arrival-scale:.975}
+.field-themes{--arrival-y:30px;--arrival-scale:.985}
+html.js body.has-entered .arrival-piece{
+  animation:arrive-premium 2.05s cubic-bezier(.16,.82,.18,1) both;
+  animation-delay:calc(.14s * var(--arrival,0));
+}
+html.js body.has-entered .field-landscape{animation-duration:2.75s}
+html.js body.has-entered .field-feature{animation-duration:2.3s}
+@keyframes arrive-premium{
+  0%{opacity:0;transform:translate3d(var(--arrival-x),var(--arrival-y),0) scale(var(--arrival-scale));filter:saturate(.82)}
+  72%{opacity:1}
+  100%{opacity:1;transform:translate3d(0,0,0) scale(1);filter:saturate(1)}
+}
+
+/* Give the projector screen a stable gap below the header. */
+.projection-field{padding-top:clamp(4.5rem,8vh,7rem)}
+.projection-screen{transform:translateY(clamp(24px,3.5vh,42px))}
+
+@media(max-width:760px),(hover:none),(pointer:coarse){
+  .field-name .title-word:hover{transform:none}
+  .field-name .title-word:hover .kinetic-letter{color:inherit!important}
+}
+@media(max-width:720px){
+  .field-vignette{background:linear-gradient(0deg,rgba(2,14,12,.76),rgba(2,14,12,.04) 72%)}
+  .projection-field{padding-top:3.75rem}
+  .projection-screen{transform:translateY(18px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .field-name .title-word,.field-name .kinetic-letter,.field-button,.field-feature,.field-themes a{transition:none!important}
+  .field-name .title-word:hover{transform:none}
+}
+
+/* Let completed arrival pieces return to normal CSS so hover movement remains functional. */
+html.js body.has-entered .arrival-piece{animation-fill-mode:backwards}
+
+/* Preserve more of the actual cloud and landscape color at both edges. */
+.field-landscape::before{filter:saturate(1.02) contrast(1.02) brightness(.9)}
+.field-landscape:hover::before{filter:saturate(1.04) contrast(1.02) brightness(.92)}
+.field-vignette{
+  background:
+    linear-gradient(90deg,rgba(2,14,12,.6) 0%,rgba(2,14,12,.38) 24%,rgba(2,14,12,.09) 48%,rgba(2,14,12,0) 70%,rgba(2,14,12,.015) 100%),
+    linear-gradient(0deg,rgba(2,13,11,.24),transparent 39%);
+}
+
+/* Final weather visibility: retain only a light pine contrast veil behind the copy. */
+.field-vignette{
+  background:
+    linear-gradient(90deg,rgba(2,14,12,.45) 0%,rgba(2,14,12,.27) 24%,rgba(2,14,12,.06) 48%,rgba(2,14,12,0) 62%,rgba(2,14,12,0) 100%),
+    linear-gradient(0deg,rgba(2,13,11,.16),transparent 36%);
+}
+.field-copy{text-shadow:0 3px 26px rgba(0,0,0,.68),0 1px 2px rgba(0,0,0,.64)}
+
+/* Image-first homepage: remove the grey wash and let the supplied landscape retain its full color and depth. */
+.field-landscape::before{
+  filter:saturate(1.08) contrast(1.06) brightness(.98);
+}
+.field-landscape:hover::before{
+  filter:saturate(1.12) contrast(1.06) brightness(1);
+}
+.field-landscape img{
+  filter:saturate(1.15) contrast(1.08) brightness(1) drop-shadow(-22px 18px 30px rgba(0,0,0,.18));
+}
+.field-landscape:hover img{
+  filter:saturate(1.18) contrast(1.08) brightness(1.02) drop-shadow(-24px 20px 32px rgba(0,0,0,.2));
+}
+.field-vignette{background:transparent!important}
+.field-copy{text-shadow:0 4px 22px rgba(0,0,0,.82),0 1px 3px rgba(0,0,0,.82)}
+@media(max-width:720px){.field-vignette{background:transparent!important}}
+
+/* Final readability pass: restore contrast only behind the copy, not across the whole photograph. */
+.field-vignette{background:transparent!important}
+.field-copy{position:relative;isolation:isolate;text-shadow:none}
+.field-copy::before{
+  content:"";
+  position:absolute;
+  left:clamp(-18px,-1.1vw,-6px);
+  top:clamp(2.7rem,7vh,5.8rem);
+  bottom:clamp(5.6rem,12vh,8.7rem);
+  width:min(43rem,95%);
+  z-index:-1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(3,15,13,.56) 0%,rgba(3,15,13,.36) 28%,rgba(3,15,13,.18) 54%,rgba(3,15,13,.06) 74%,rgba(3,15,13,0) 100%),
+    radial-gradient(100% 72% at 22% 34%,rgba(3,15,13,.14) 0%,rgba(3,15,13,.06) 45%,rgba(3,15,13,0) 100%);
+  filter:blur(3px);
+}
+.field-name .phil-word{color:#f7f1e4!important}
+.field-name .zuck-word{color:#f0ebdf!important}
+.field-name .title-word{
+  text-shadow:0 14px 32px rgba(0,0,0,.32),0 2px 4px rgba(0,0,0,.38);
+}
+.field-sub{
+  color:rgba(246,241,232,.95);
+  text-shadow:0 2px 5px rgba(0,0,0,.56),0 0 1px rgba(0,0,0,.7);
+}
+.field-kicker,.story-link,.story-link b{ text-shadow:0 2px 4px rgba(0,0,0,.45) }
+
+@media(max-width:720px){
+  .field-copy::before{
+    left:0;
+    right:0;
+    width:auto;
+    top:1.1rem;
+    bottom:1.2rem;
+    background:linear-gradient(180deg,rgba(3,15,13,.42) 0%,rgba(3,15,13,.28) 38%,rgba(3,15,13,.12) 68%,rgba(3,15,13,0) 100%);
+    filter:none;
+  }
+}
+
+/* Professional polish pass: cleaner composition while preserving cursor behavior, word/letter color interactions, and slow movement. */
+.field-landscape::before{
+  background-image:url("hiking-landscape-pro.webp");
+  background-position:58% 44%;
+  background-size:cover;
+  filter:saturate(1.18) contrast(1.1) brightness(.98);
+}
+.field-landscape:hover::before{
+  filter:saturate(1.2) contrast(1.1) brightness(1);
+}
+.field-landscape img{
+  right:clamp(88px,7.8vw,128px);
+  width:min(54vw,735px);
+  height:calc(100% - 6px);
+  object-position:right bottom;
+  filter:saturate(1.12) contrast(1.06) brightness(.99) drop-shadow(-18px 18px 28px rgba(0,0,0,.17));
+}
+.field-landscape:hover img{
+  filter:saturate(1.15) contrast(1.06) brightness(1.01) drop-shadow(-20px 20px 30px rgba(0,0,0,.19));
+}
+
+/* Narrower, darker contrast bed only where the copy sits. */
+.field-copy{width:min(710px,54vw)}
+.field-copy::before{
+  left:clamp(-10px,-0.8vw,-3px);
+  top:clamp(3.3rem,8.2vh,6.2rem);
+  bottom:clamp(6.6rem,14vh,9.4rem);
+  width:min(34rem,85%);
+  background:
+    linear-gradient(90deg,rgba(3,15,13,.68) 0%,rgba(3,15,13,.44) 34%,rgba(3,15,13,.2) 58%,rgba(3,15,13,.08) 74%,rgba(3,15,13,0) 100%),
+    radial-gradient(96% 72% at 20% 36%,rgba(3,15,13,.18) 0%,rgba(3,15,13,.08) 46%,rgba(3,15,13,0) 100%);
+  filter:blur(2px);
+}
+.field-name{font-size:clamp(4.8rem,8.7vw,9rem)}
+.field-name .zuck-word{font-size:.8em}
+.field-name .title-word{letter-spacing:-.045em}
+.field-sub{max-width:31rem}
+
+/* Feature cards more integrated and less like detached floating panels. */
+.field-features{
+  right:clamp(42px,4vw,72px);
+  top:31%;
+  width:clamp(198px,14.2vw,232px);
+  gap:.8rem;
+}
+.field-feature{
+  padding:1.1rem 1.18rem;
+  background:rgba(8,24,21,.54);
+  border-color:rgba(244,239,228,.14);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+.field-feature strong{font-size:clamp(1.32rem,1.7vw,1.95rem);line-height:1.06}
+.field-feature:hover{transform:translateX(-1.5%) translateY(-4px) scale(1.038);background:rgba(10,28,24,.66)}
+
+/* Cleaner lower band. */
+.field-themes{
+  grid-template-columns:repeat(4,minmax(0,1fr)) 112px;
+  min-height:68px;
+  background:rgba(18,47,38,.82);
+}
+.field-themes a,.scroll-cue{padding:.56rem .84rem}
+.field-themes a:hover{transform:translateY(-3px) scale(1.006);box-shadow:0 10px 22px rgba(0,0,0,.22)}
+.theme-copy b{font-size:.6rem;letter-spacing:.12em}
+.theme-copy span{margin-top:.08rem;font-size:.67rem;line-height:1.18}
+.scroll-cue{font-size:.59rem;letter-spacing:.16em}
+
+/* Stronger but still restrained watch control. */
+.story-link{gap:1.1rem;margin-top:2.35rem;font-size:.62rem}
+.story-disc{width:58px;height:58px;font-size:.56rem;letter-spacing:.14em}
+.story-link:hover .story-disc{transform:scale(1.06)}
+
+/* Quiet the coordinate rail instead of shouting. */
+.field-rail{color:rgba(244,239,228,.28)}
+.field-rail span,.field-rail b{font-size:.47rem;letter-spacing:.16em}
+
+/* Phone refinements to keep the calmer hierarchy. */
+@media(max-width:1024px){
+  .field-copy{width:min(690px,56vw)}
+  .field-features{right:28px;top:28.5%;width:205px}
+}
+@media(max-width:720px){
+  .field-copy::before{
+    left:0;right:0;width:auto;top:1rem;bottom:1.1rem;
+    background:linear-gradient(180deg,rgba(3,15,13,.5) 0%,rgba(3,15,13,.32) 34%,rgba(3,15,13,.12) 68%,rgba(3,15,13,0) 100%);
+  }
+  .field-name{font-size:19.1vw}
+  .field-name .zuck-word{font-size:.72em}
+  .field-themes{grid-template-columns:1fr 1fr;min-height:0}
+  .field-themes a,.scroll-cue{padding:.78rem 1rem}
+  .story-disc{width:50px;height:50px}
+}
+
+/* Hero correction: remove the blown-out middle and keep the photograph vivid but darker. */
+.field-landscape::before{
+  background-image:url("hiking-landscape-rich.webp");
+  background-position:44% 46%;
+  background-size:cover;
+  filter:saturate(1.02) contrast(1.14) brightness(.72);
+}
+.field-landscape:hover::before{
+  filter:saturate(1.04) contrast(1.14) brightness(.75);
+}
+.field-copy::before{
+  left:clamp(-8px,-0.7vw,-2px);
+  width:min(32rem,82%);
+  background:
+    linear-gradient(90deg,rgba(3,15,13,.74) 0%,rgba(3,15,13,.52) 34%,rgba(3,15,13,.24) 58%,rgba(3,15,13,.08) 72%,rgba(3,15,13,0) 100%),
+    radial-gradient(92% 72% at 18% 36%,rgba(3,15,13,.16) 0%,rgba(3,15,13,.06) 48%,rgba(3,15,13,0) 100%);
+}
+
+/* Final homepage fit pass: move feature cards off Phil's torso and rebalance first/last name sizing. */
+.field-features{
+  right:clamp(190px,15vw,248px);
+  top:26.5%;
+  width:clamp(176px,13vw,208px);
+}
+.field-feature{padding:1rem 1.05rem}
+.field-feature strong{font-size:clamp(1.2rem,1.48vw,1.72rem);line-height:1.06}
+.field-feature:hover{transform:translateX(-1.2%) translateY(-4px) scale(1.034)}
+
+.field-name .phil-word{
+  font-size:.91em;
+}
+.field-name .zuck-word{
+  font-size:.84em!important;
+}
+
+@media(max-width:1024px){
+  .field-features{right:156px;top:24.8%;width:188px}
+}
+@media(max-width:720px){
+  .field-name .phil-word,.field-name .zuck-word{font-size:1em!important}
+}
+
+/* Correction pass: keep cards completely off the figure and rebalance the name hierarchy. */
+.field-features{
+  right:clamp(300px,22vw,360px);
+  top:28.5%;
+  width:clamp(158px,11.5vw,180px);
+  gap:.78rem;
+}
+.field-feature{padding:.92rem .98rem}
+.field-feature strong{font-size:clamp(1.12rem,1.34vw,1.56rem);line-height:1.05}
+.field-feature small,.field-feature span{font-size:.5rem}
+.field-feature:hover{transform:translateX(-1%) translateY(-4px) scale(1.03)}
+
+.field-name .phil-word{font-size:.86em}
+.field-name .zuck-word{font-size:.88em!important}
+
+@media(max-width:1200px){
+  .field-features{right:250px;width:170px}
+}
+@media(max-width:1024px){
+  .field-features{right:212px;top:25.4%;width:176px}
+}
+@media(max-width:720px){
+  .field-name .phil-word,.field-name .zuck-word{font-size:1em!important}
+}
+
+/* Verified no-overlap placement: reserve a clear right-side column for the feature cards. */
+.field-landscape img{
+  right:clamp(190px,14vw,220px);
+}
+.field-features{
+  right:18px;
+  top:28.5%;
+  width:160px;
+}
+@media(max-width:1200px){
+  .field-landscape img{right:170px}
+  .field-features{right:16px;width:150px}
+}
+@media(max-width:1024px){
+  .field-landscape img{right:150px}
+  .field-features{right:14px;top:25.4%;width:142px}
+}
+@media(max-width:720px){
+  .field-landscape img{right:-8%}
+  .field-features{right:auto;width:auto}
+}
+
+
+/* International book editions supplied by Phil. */
+.translation-section{
+  display:grid;
+  grid-template-columns:minmax(250px,32%) 1fr;
+  gap:1px;
+  background:var(--line);
+  border-bottom:1px solid var(--line);
+}
+.translation-heading{
+  min-height:270px;
+  padding:clamp(2.2rem,5vw,5rem);
+  background:linear-gradient(145deg,var(--pine-950),var(--pine-850));
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.translation-heading h2{
+  margin:.25rem 0 0;
+  font-family:var(--serif);
+  font-size:clamp(3rem,5.2vw,6rem);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-.045em;
+}
+.translation-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;
+  background:var(--line);
+}
+.translation-card{
+  min-height:270px;
+  padding:clamp(2rem,4vw,4rem);
+  background:var(--pine-850);
+  color:var(--paper);
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  transition:transform .98s cubic-bezier(.2,.72,.24,1),background .82s ease,box-shadow .98s ease;
+}
+.translation-card:hover{
+  transform:translateY(-5px) scale(1.008);
+  background:var(--pine-700);
+  box-shadow:0 22px 48px rgba(0,0,0,.32);
+  z-index:2;
+}
+.translation-language,
+.translation-action{
+  color:var(--amber-light);
+  font-size:.57rem;
+  font-weight:800;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+.translation-card strong{
+  margin:.75rem 0 .65rem;
+  font-family:var(--serif);
+  font-size:clamp(1.75rem,2.8vw,3.1rem);
+  font-weight:400;
+  line-height:1.02;
+}
+.translation-meta{
+  max-width:30rem;
+  color:rgba(244,239,228,.7);
+  font-family:var(--serif);
+  font-size:clamp(.95rem,1.25vw,1.2rem);
+  line-height:1.35;
+}
+.translation-action{margin-top:1.5rem}
+
+@media(max-width:920px){
+  .translation-section{grid-template-columns:1fr}
+  .translation-heading{min-height:0;padding:3rem 18px}
+  .translation-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .translation-grid{grid-template-columns:1fr}
+  .translation-card{min-height:220px;padding:2.4rem 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .translation-card{transition:none!important}
+  .translation-card:hover{transform:none}
 }
