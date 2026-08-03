@@ -7,7 +7,11 @@
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
   // Arrival choreography. Content remains visible when JavaScript is unavailable.
-  requestAnimationFrame(() => body.classList.add('has-entered'));
+  requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add('has-entered')));
+  window.addEventListener('pageshow', () => {
+    body.classList.remove('is-leaving');
+    if (!body.classList.contains('has-entered')) requestAnimationFrame(() => body.classList.add('has-entered'));
+  });
 
   // Pointer position powers restrained image parallax and the survey cursor.
   let mouseX = window.innerWidth / 2;
@@ -105,7 +109,7 @@
       event.preventDefault();
       closeMenu();
       body.classList.add('is-leaving');
-      window.setTimeout(() => { window.location.href = url.href; }, reduceMotion.matches ? 20 : 470);
+      window.setTimeout(() => { window.location.href = url.href; }, reduceMotion.matches ? 20 : 300);
     });
   });
 
@@ -150,10 +154,11 @@
     });
     element.dataset.wordsReady = 'true';
   };
-  document.querySelectorAll('.nav a,.field-sub,.gallery-copy h2,.page-hero-copy h1,.bio-block h2,.work-row h2,.film-card h2,.route-event h2,.book-object h3,.book-info h1').forEach(splitWords);
+  if (finePointer.matches && !reduceMotion.matches) {
+    document.querySelectorAll('.nav a,.field-sub,.gallery-copy h2,.page-hero-copy h1,.bio-block h2,.work-row h2,.film-card h2,.route-event h2,.book-object h3,.book-info h1').forEach(splitWords);
+  }
 
   // Header movement is handled in CSS so it remains slow and consistent.
-  // Horizontal book shelf: drag on fine pointers; native horizontal scroll/swipe on touch.
   // Book-cover tilt on capable devices only.
   document.querySelectorAll('[data-tilt]').forEach((element) => {
     element.addEventListener('pointermove', (event) => {
@@ -194,13 +199,12 @@
     });
   });
 
-  // Outdoor screening: no autoplay until the visitor explicitly presses Play.
+  // Selected video: no autoplay until the visitor explicitly presses Play.
   const frame = document.querySelector('#projection-video');
   const screen = document.querySelector('.screen-frame');
   const playButton = document.querySelector('.screen-poster');
   const titleElement = document.querySelector('#projection-title');
   const directLink = document.querySelector('#projection-direct');
-  const status = document.querySelector('#projection-status');
 
   if (frame && screen && playButton) {
     const params = new URLSearchParams(window.location.search);
@@ -215,16 +219,9 @@
 
     playButton.addEventListener('click', () => {
       if (screen.classList.contains('is-playing')) return;
-      if (status) status.textContent = 'Requesting the YouTube player. Playback and audio remain under your control.';
       frame.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1${start ? `&start=${start}` : ''}`;
       screen.classList.add('is-playing');
       frame.focus({ preventScroll: true });
-    });
-
-    frame.addEventListener('load', () => {
-      if (status && screen.classList.contains('is-playing')) {
-        status.textContent = 'YouTube player requested. If playback is blocked or the frame remains blank, use the direct YouTube link.';
-      }
     });
   }
 })();

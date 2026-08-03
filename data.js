@@ -111,7 +111,7 @@ window.PHIL_DATA = {
       "title": "Sociology, Unplugged",
       "subtitle": "A Concise Guide to Contemporary Sociology",
       "publisher": "Routledge",
-      "year": "2026",
+      "year": "2025",
       "role": "Author",
       "cover": "sociology-unplugged.jpg",
       "links": [
@@ -331,9 +331,9 @@ window.PHIL_DATA = {
     {
       "slug": "du-bois-on-religion",
       "title": "Du Bois on Religion",
-      "subtitle": "Second Edition",
-      "publisher": "Bloomsbury",
-      "year": "2025",
+      "subtitle": "",
+      "publisher": "AltaMira Press",
+      "year": "2000",
       "role": "Editor",
       "cover": "du-bois-on-religion.jpg",
       "links": [

@@ -1070,3 +1070,213 @@ html.js body.has-entered .arrival-piece{animation-fill-mode:backwards}
   .field-name .phil-word{font-size:.91em!important}
   .field-name .zuck-word{font-size:.72em!important}
 }
+
+/* Verification pass v24: structural cleanup and defensive responsive rules. */
+.mark::before{content:none!important;display:none!important}
+.page-code,.shelf-help,.scroll-cue,.film-num,.work-row .n,.route-event .kicker,.projection-status,.projector,.beam,.lens{display:none!important}
+.bio-block::before{content:none!important;display:none!important}
+
+/* Book gallery now presents roles, not arbitrary indices. */
+.book-role{
+  display:block;
+  color:var(--amber-light);
+  font-family:var(--sans);
+  font-size:.56rem;
+  font-weight:500;
+  line-height:1.35;
+  letter-spacing:.115em;
+  text-transform:uppercase;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Lists remain legible after number labels are removed. */
+.work-row{
+  grid-template-columns:minmax(0,1fr) minmax(170px,28%) 28px;
+  gap:1.35rem;
+  padding-left:1.8rem;
+}
+.route-event h2{margin-top:0}
+.film-card>div{position:relative;z-index:2}
+
+/* Clean viewing room: one screen, one title, two useful links. */
+.projection-field{
+  min-height:calc(100svh - var(--header));
+  padding:clamp(2.2rem,4.5vh,4rem) var(--pad) 4rem;
+  align-items:flex-start;
+}
+.projection-screen{width:min(1080px,88vw);margin:0 auto;transform:none!important}
+.screen-frame{aspect-ratio:16/9;min-height:0;border:1px solid rgba(244,239,228,.22);padding:0;background:#020403}
+.screen-poster{inset:0}
+.projection-meta{margin-top:1.25rem;padding-top:1.1rem}
+.projection-meta .kicker{font-weight:500;letter-spacing:.12em}
+.projection-links a{font-weight:500;text-shadow:none}
+
+/* Homepage labels and primary actions use a thin, crisp typographic weight. */
+.field-button,.field-button b{font-weight:400;text-shadow:none}
+.field-feature small,.field-feature span{font-weight:400;text-shadow:none}
+.field-feature strong{font-weight:400;text-shadow:none}
+
+@media(max-width:760px){
+  .work-row{grid-template-columns:minmax(0,1fr) 20px;gap:.75rem;padding-left:1rem}
+  .work-row p{grid-column:1}
+  .projection-field{padding:1.5rem 12px 2.5rem}
+  .projection-screen{width:100%}
+  .projection-meta{display:block}
+  .projection-links{align-items:flex-start;margin-top:1.25rem}
+}
+
+/* Final visual review v25: tighten the secondary introduction and resolve the mobile photo seam. */
+.gallery-intro{
+  padding:clamp(3.2rem,5.2vw,5rem) max(var(--pad),calc(var(--rail) + 3vw));
+}
+.gallery-intro h2{
+  max-width:860px;
+  font-size:clamp(2.2rem,3.7vw,3.85rem);
+  line-height:1.025;
+}
+
+@media(max-width:720px){
+  .field-name .phil-word,
+  .field-name .zuck-word{font-size:.82em!important}
+  .field-landscape img{
+    right:-4%;
+    width:108%;
+    object-position:68% center;
+    -webkit-mask-image:radial-gradient(ellipse 78% 78% at 76% 52%,#000 0 56%,rgba(0,0,0,.9) 66%,rgba(0,0,0,.4) 78%,transparent 94%);
+    mask-image:radial-gradient(ellipse 78% 78% at 76% 52%,#000 0 56%,rgba(0,0,0,.9) 66%,rgba(0,0,0,.4) 78%,transparent 94%);
+  }
+  .gallery-intro{padding:3rem 18px}
+  .gallery-intro h2{font-size:clamp(2rem,9.4vw,2.65rem);line-height:1.04}
+}
+
+/* v26 final usability and motion audit. */
+
+/* One continuous, GPU-friendly page transition instead of staggered panels. */
+.transition-walls{
+  display:block;
+  visibility:hidden;
+  opacity:0;
+  transform:translate3d(0,10px,0);
+  background:rgba(5,17,15,.985);
+  transition:opacity .30s cubic-bezier(.22,.72,.22,1),transform .30s cubic-bezier(.22,.72,.22,1),visibility 0s linear .30s;
+  will-change:opacity,transform;
+  contain:paint;
+}
+.transition-walls i{display:none!important}
+body.is-leaving .transition-walls{
+  visibility:visible;
+  opacity:1;
+  transform:translate3d(0,0,0);
+  transition-delay:0s;
+}
+html.js body:not(.has-entered) main,
+html.js body:not(.has-entered) .site-header{opacity:.94}
+html.js body.has-entered main,
+html.js body.has-entered .site-header{opacity:1;transition:opacity .38s ease}
+
+/* Smooth arrival without filter animation or bounce. */
+.arrival-piece{backface-visibility:hidden;transform-style:preserve-3d}
+html.js body.has-entered .arrival-piece{
+  animation-name:arrive-final!important;
+  animation-duration:1.3s!important;
+  animation-timing-function:cubic-bezier(.18,.78,.2,1)!important;
+  animation-delay:calc(.08s * var(--arrival,0))!important;
+  animation-fill-mode:backwards!important;
+}
+html.js body.has-entered .field-landscape{animation-duration:1.65s!important}
+html.js body.has-entered .field-feature{animation-duration:1.4s!important}
+@keyframes arrive-final{
+  from{opacity:0;transform:translate3d(var(--arrival-x),var(--arrival-y),0) scale(var(--arrival-scale))}
+  to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+
+/* Desktop hover words rise as complete words; touch devices never retain hover states. */
+@media (hover:hover) and (pointer:fine){
+  .kinetic-word:hover{transform:translate3d(0,-5px,0)}
+  .field-sub .kinetic-word:hover{transform:translate3d(0,-4px,0)}
+  .field-name .title-word:hover{transform:translate3d(0,-9px,0)}
+}
+@media (hover:none),(pointer:coarse){
+  .kinetic-word:hover,
+  .field-sub .kinetic-word:hover,
+  .field-name .title-word:hover{transform:none!important;color:inherit!important;text-shadow:inherit!important}
+  .field-name .title-word:hover .kinetic-letter{color:inherit!important}
+}
+
+/* The viewing screen scales to the actual viewport instead of dominating short displays. */
+.projection-field{
+  min-height:calc(100dvh - var(--header));
+  padding:clamp(1.7rem,3.8vh,3.4rem) var(--pad) 2.5rem;
+  overflow:auto;
+}
+.projection-screen{width:min(980px,82vw);max-width:100%;margin:0 auto;transform:none!important}
+.screen-frame{width:100%;aspect-ratio:16/9;max-height:calc(100dvh - var(--header) - 10rem)}
+.screen-poster img{object-position:center 36%}
+.projection-meta{gap:1.4rem;margin-top:1rem;padding-top:1rem}
+.projection-meta h1{font-size:clamp(2rem,3.25vw,3.65rem);line-height:.98}
+.projection-links a{min-height:44px;display:flex;align-items:center}
+
+@media (min-width:761px) and (max-height:760px){
+  .projection-field{padding-top:1rem;padding-bottom:1.4rem}
+  .projection-screen{width:min(820px,70vw)}
+  .projection-meta{margin-top:.7rem;padding-top:.7rem}
+  .projection-meta h1{font-size:clamp(1.8rem,3vw,2.8rem)}
+}
+
+/* Remove the assistant-authored footer slogan while retaining useful contact navigation. */
+.footer-main-clean{justify-content:flex-end;min-height:150px}
+.footer-main-clean>div{margin:0!important;text-align:right}
+
+/* Phone usability: full tap targets, contained screens, faster arrivals, and no hover dependency. */
+a,button{touch-action:manipulation}
+.field-button,.story-link,.field-feature,.work-row,.route-event,.film-card,.book-links a,.projection-links a,.menu{min-height:48px}
+@media(max-width:760px){
+  .site-header{padding-top:env(safe-area-inset-top);height:calc(var(--header) + env(safe-area-inset-top))}
+  .nav{top:calc(var(--header) + env(safe-area-inset-top));height:calc(100dvh - var(--header) - env(safe-area-inset-top));overscroll-behavior:contain}
+  .nav a{min-height:56px}
+  html.js body.has-entered .arrival-piece{animation-duration:.68s!important;animation-delay:calc(.035s * var(--arrival,0))!important}
+  html.js .reveal.in{transition-duration:.5s!important}
+  .projection-field{min-height:calc(100dvh - var(--header));padding:1rem 12px 2rem}
+  .projection-screen{width:100%;max-width:680px}
+  .screen-frame{max-height:none;aspect-ratio:16/9}
+  .screen-play{width:62px;height:62px}
+  .projection-meta{display:block;margin-top:.85rem;padding-top:.85rem}
+  .projection-meta h1{font-size:clamp(2rem,10vw,2.8rem)}
+  .projection-links{margin-top:.75rem;gap:.15rem}
+  .projection-links a{width:100%;justify-content:flex-start}
+  .gallery-card,.gallery-card:nth-child(3n),.film-card{min-height:58svh}
+  .footer-main-clean{min-height:0;padding:2.4rem 18px}
+  .footer-main-clean>div{text-align:left}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .transition-walls{display:none!important}
+  html.js body:not(.has-entered) main,
+  html.js body:not(.has-entered) .site-header{opacity:1!important}
+}
+
+/* v26 corrections found during device audit. */
+.translation-action{
+  display:inline-flex;
+  align-items:center;
+  min-height:48px;
+  padding:.65rem 0;
+}
+.screen-frame{max-height:none}
+@media (min-width:761px) and (max-height:820px){
+  .projection-screen{width:min(900px,72vw)}
+}
+@media (min-width:761px) and (max-height:760px){
+  .projection-screen{width:min(800px,68vw)}
+}
+
+/* Keep the title and controls visible on short laptop screens. */
+@media (min-width:761px) and (max-height:820px){
+  .projection-screen{width:min(860px,70vw)}
+}
+@media (min-width:761px) and (max-height:700px){
+  .projection-screen{width:min(740px,64vw)}
+  .projection-meta{grid-template-columns:1fr auto;align-items:start}
+  .projection-links{flex-direction:row;align-items:flex-start;gap:1rem}
+  .projection-links a{min-height:40px}
+}
