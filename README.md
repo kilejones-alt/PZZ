@@ -1,6 +1,6 @@
-# Phil Zuckerman — Field Gallery
+# Phil Zuckerman Website
 
-Current merged website build, 2026-08-07.
+Current website build, 2026-08-08.
 
 Static multipage website built from the supplied photographs, book covers, written materials, and video links.
 

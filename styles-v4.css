@@ -1391,3 +1391,32 @@ a,button{touch-action:manipulation}
     line-height:1.4;
   }
 }
+
+/* v28 usability refinement: clearer lower-band text and safer in-page navigation. */
+html{
+  scroll-padding-top:calc(var(--header) + 18px);
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+#secularism,#morality,#democracy,#social,#humanism{
+  scroll-margin-top:calc(var(--header) + 18px);
+}
+.theme-copy b{
+  font-size:.64rem;
+  font-weight:500;
+  letter-spacing:.115em;
+}
+.theme-copy span{
+  font-size:.72rem;
+  line-height:1.24;
+  color:rgba(244,239,228,.86);
+}
+.field-themes{min-height:72px}
+
+@media(max-width:760px){
+  html{scroll-padding-top:calc(var(--header) + env(safe-area-inset-top) + 14px)}
+  #secularism,#morality,#democracy,#social,#humanism{scroll-margin-top:calc(var(--header) + env(safe-area-inset-top) + 14px)}
+  .theme-copy b{font-size:.65rem;letter-spacing:.11em}
+  .theme-copy span{font-size:.77rem;line-height:1.28}
+  .field-button{min-height:52px}
+}
